@@ -5,13 +5,15 @@ class TodoRepositoryImpl implements TodoRepository {
   final List<Todo> _todos = [];
 
   @override
-  List<Todo> getTodos() {
+  Future<List<Todo>> getTodos() async {
+    await Future.delayed(const Duration(seconds: 2));
     return List.from(_todos);
   }
 
   @override
-  void addTodo(Todo todo) {
+  Future<void> addTodo(Todo todo) async {
+    await Future.delayed(const Duration(seconds: 1));
     _todos.add(todo);
-    print("📌 Se guardó en la lista: ${todo.title}");
+    print("✅ Tarea agregada: $todo");
   }
 }

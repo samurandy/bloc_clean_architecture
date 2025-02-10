@@ -5,7 +5,7 @@ sealed class TodoEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadTodos extends TodoEvent {}
+class LoadToDos extends TodoEvent {}
 
 class AddTodo extends TodoEvent {
   final String title;

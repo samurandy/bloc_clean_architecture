@@ -14,12 +14,12 @@ void main() {
     useCase = GetTodosUseCase(mockRepository);
   });
 
-  test('Debe retornar una lista de tareas', () {
+  test('Debe retornar una lista de tareas', () async {
     // Arrange
-    when(() => mockRepository.getTodos()).thenReturn([]);
+    when(() => mockRepository.getTodos()).thenAnswer((_) async => []);
 
     // Act
-    final result = useCase();
+    final result = await useCase(); // Esperamos que se complete el Future
 
     // Assert
     expect(result, []);

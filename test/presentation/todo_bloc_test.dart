@@ -1,4 +1,5 @@
 import 'package:bloc_clean_architecture/presentation/blocs/todo_event.dart';
+import 'package:bloc_clean_architecture/presentation/blocs/todo_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -21,13 +22,17 @@ void main() {
     bloc = TodoBloc(getTodos: mockGetTodosUseCase, addTodo: mockAddTodoUseCase);
   });
 
-  blocTest<TodoBloc, List>(
+  blocTest<TodoBloc, TodoState>(
     'Debe emitir una lista de tareas vacía al iniciar',
     build: () {
-      when(() => mockGetTodosUseCase()).thenReturn([]);
+      when(() => mockGetTodosUseCase()).thenAnswer((_) async => []);
       return bloc;
     },
-    act: (bloc) => bloc.add(LoadTodos()),
-    expect: () => [[]],
+    act: (bloc) => bloc.add(LoadToDos()),
+    expect: () => [
+      TodoLoading(),
+      TodoLoaded(
+          const []), // Esperamos que se emita el estado 'TodoLoaded' con una lista vacía
+    ],
   );
 }

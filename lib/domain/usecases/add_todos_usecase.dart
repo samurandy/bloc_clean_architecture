@@ -6,8 +6,8 @@ class AddTodoUseCase {
 
   AddTodoUseCase(this.repository);
 
-  void call(Todo todo) {
-    repository.addTodo(todo);
+  Future<void> call(Todo todo) async {
+    await repository.addTodo(todo);
     print("✅ Nueva tarea agregada: ${todo.title}");
   }
 }

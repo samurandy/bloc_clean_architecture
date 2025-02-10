@@ -9,14 +9,18 @@ void main() {
     repository = TodoRepositoryImpl();
   });
 
-  test('Debe iniciar con una lista vacía', () {
-    expect(repository.getTodos(), []);
+  test('Debe iniciar con una lista vacía', () async {
+    final todos = await repository.getTodos();
+    expect(todos, isEmpty);
   });
 
-  test('Debe agregar una tarea correctamente', () {
-    final todo = Todo(id: '1', title: 'Nueva tarea');
-    repository.addTodo(todo);
+  test('Debe agregar una tarea correctamente', () async {
+    const todo = Todo(id: '1', title: 'Nueva tarea');
 
-    expect(repository.getTodos(), contains(todo));
+    await repository.addTodo(todo);
+
+    final todos = await repository.getTodos();
+
+    expect(todos, contains(todo));
   });
 }

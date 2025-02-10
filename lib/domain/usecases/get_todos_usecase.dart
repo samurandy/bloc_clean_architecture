@@ -6,9 +6,9 @@ class GetTodosUseCase {
 
   GetTodosUseCase(this.repository);
 
-  List<Todo> call() {
-    final todos = repository.getTodos();
-    print("📋 Lista de tareas obtenida: ${todos as List}");
+  Future<List<Todo>> call() async {
+    final todos = await repository.getTodos();
+    print("📋 Lista de tareas obtenida: $todos");
     return todos;
   }
 }
