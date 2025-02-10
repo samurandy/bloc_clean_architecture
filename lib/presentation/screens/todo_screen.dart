@@ -1,8 +1,29 @@
+import 'package:bloc_clean_architecture/data/repositories/todo_repository_impl.dart';
 import 'package:bloc_clean_architecture/domain/entities/todo.dart';
+import 'package:bloc_clean_architecture/domain/usecases/add_todos_usecase.dart';
+import 'package:bloc_clean_architecture/domain/usecases/get_todos_usecase.dart';
 import 'package:bloc_clean_architecture/presentation/blocs/todo_bloc.dart';
 import 'package:bloc_clean_architecture/presentation/blocs/todo_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+class TodoScreenWrapper extends StatelessWidget {
+  const TodoScreenWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final todoRepository =
+        TodoRepositoryImpl(); // O inyección de dependencias si lo prefieres
+
+    return BlocProvider(
+      create: (context) => TodoBloc(
+        getTodos: GetTodosUseCase(todoRepository),
+        addTodo: AddTodoUseCase(todoRepository),
+      ),
+      child: const TodoScreen(),
+    );
+  }
+}
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
