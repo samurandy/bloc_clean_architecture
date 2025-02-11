@@ -35,8 +35,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
       try {
         await addTodo(newTodo);
-        final updatedTodos = List<Todo>.from(currentTodos)..add(newTodo);
-        emit(TodoLoaded(updatedTodos));
+        emit((state as TodoLoaded).copyWith(todos: [...currentTodos, newTodo]));
       } catch (e) {
         emit(TodoError("Error al agregar la tarea"));
       }

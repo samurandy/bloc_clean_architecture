@@ -13,6 +13,10 @@ class TodoLoaded extends TodoState {
 
   TodoLoaded(this.todos);
 
+  TodoLoaded copyWith({List<Todo>? todos}) {
+    return TodoLoaded(todos ?? this.todos);
+  }
+
   @override
   List<Object> get props => [todos];
 }
