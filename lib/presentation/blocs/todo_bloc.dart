@@ -23,7 +23,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       emit(TodoLoaded(todos));
     } catch (e, stackTrace) {
       print("❌ Error en getTodos(): $e");
-      print(stackTrace); // 🔥 Imprime el stacktrace para más información
+      print(stackTrace);
       emit(TodoError("Error al cargar las tareas"));
     }
   }
@@ -34,7 +34,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       final newTodo = Todo(id: DateTime.now().toString(), title: event.title);
 
       try {
-        await addTodo(newTodo); // Simula API
+        await addTodo(newTodo);
         final updatedTodos = List<Todo>.from(currentTodos)..add(newTodo);
         emit(TodoLoaded(updatedTodos));
       } catch (e) {

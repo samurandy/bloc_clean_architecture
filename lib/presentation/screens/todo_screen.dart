@@ -59,22 +59,20 @@ class _TodoScreen extends StatelessWidget {
           Expanded(
             child: BlocBuilder<TodoBloc, TodoState>(
               builder: (context, state) {
-                if (state is TodoLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state is TodoLoaded) {
-                  return ListView.builder(
-                    itemCount: state.todos.length,
-                    itemBuilder: (context, index) {
-                      final todo = state.todos[index];
-                      return ListTile(
-                        title: Text(todo.title),
-                      );
-                    },
-                  );
-                } else if (state is TodoError) {
-                  return Center(child: Text(state.message));
-                }
-                return Container();
+                return switch (state) {
+                  TodoLoading() =>
+                    const Center(child: CircularProgressIndicator()),
+                  TodoLoaded(:final todos) => ListView.builder(
+                      itemCount: todos.length,
+                      itemBuilder: (context, index) {
+                        final todo = todos[index];
+                        return ListTile(
+                          title: Text(todo.title),
+                        );
+                      },
+                    ),
+                  TodoError(:final message) => Center(child: Text(message)),
+                };
               },
             ),
           ),
