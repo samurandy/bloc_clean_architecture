@@ -18,14 +18,14 @@ class TodoWrapper extends StatelessWidget {
           getTodos: GetTodosUseCase(TodoRepositoryImpl()),
           addTodo: AddTodoUseCase(TodoRepositoryImpl()),
         )..add(LoadToDos()),
-        child: TodoScreen(),
+        child: _TodoScreen(),
       ),
     );
   }
 }
 
-class TodoScreen extends StatelessWidget {
-  TodoScreen({super.key});
+class _TodoScreen extends StatelessWidget {
+  _TodoScreen();
   final TextEditingController controller = TextEditingController();
 
   @override
