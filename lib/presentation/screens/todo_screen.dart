@@ -1,4 +1,3 @@
-import 'package:bloc_clean_architecture/data/repositories/todo_repository_impl.dart';
 import 'package:bloc_clean_architecture/domain/usecases/add_todos_usecase.dart';
 import 'package:bloc_clean_architecture/domain/usecases/get_todos_usecase.dart';
 import 'package:bloc_clean_architecture/presentation/blocs/todo_bloc.dart';
@@ -8,15 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TodoWrapper extends StatelessWidget {
-  const TodoWrapper({super.key});
+  final GetTodosUseCase getTodosUseCase;
+  final AddTodoUseCase addTodoUseCase;
+  const TodoWrapper(
+      {super.key, required this.getTodosUseCase, required this.addTodoUseCase});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocProvider(
         create: (_) => TodoBloc(
-          getTodos: GetTodosUseCase(TodoRepositoryImpl()),
-          addTodo: AddTodoUseCase(TodoRepositoryImpl()),
+          getTodos: getTodosUseCase,
+          addTodo: addTodoUseCase,
         )..add(LoadToDos()),
         child: _TodoScreen(),
       ),
